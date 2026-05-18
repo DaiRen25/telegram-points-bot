@@ -1,13 +1,10 @@
-import os
-from telegram.ext import Application, CommandHandler
+from flask import Flask
 
-TOKEN = os.getenv("BOT_TOKEN")
+app = Flask(__name__)
 
-async def start(update, context):
-    await update.message.reply_text("Bot Online ✅")
+@app.route("/")
+def home():
+    return "Bot Online ✅"
 
-app = Application.builder().token(TOKEN).build()
-
-app.add_handler(CommandHandler("start", start))
-
-app.run_polling()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
